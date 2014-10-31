@@ -15,7 +15,7 @@ class StatusCollectionSeeder extends Seeder {
                 'user_id' => $faker->numberBetween($min = 1, $max = 3),
                 'place_id' => $faker->numberBetween($min = 1, $max = 3),
                 'status'  => $faker->numberBetween($min = 1000, $max = 1005),
-                'comment' => $faker->sentences()
+                'comment' => $faker->text($maxNbChars = 100)
             ]);
         };
 
