@@ -1,47 +1,48 @@
 <?php namespace App\Http\Controllers;
 
-use App\Status;
-use App\Transformers\StatusTransformer;
-use App\Repositories\StatusRepository;
+use Illuminate\Routing\Controller;
+use Illuminate\Http\Request;
+use App\Repositories\LocationRepository;
+use App\Transformers\LocationTransformer;
 
 /**
- * @Resource("/api/v1/status")
+ * @Resource("/api/v1/location")
  */
-class StatusController extends ApiController {
+class LocationController extends ApiController {
 
-	protected $statusTransformer;
+	protected $request;
+	protected $locationTransformer;
+	protected $location;
 
 	function __construct(
-		StatusTransformer $statusTransformer,
-		StatusRepository $status
+		Request $request,
+		LocationTransformer $locationTransformer,
+		LocationRepository  $location
 		)
 	{
-		$this->statusTransformer = $statusTransformer;
-		$this->status = $status;
+		$this->request = $request;
+		$this->locationTransformer = $locationTransformer;
+		$this->location = $location;
 	}
 
 	/**
 	 * Display a listing of the resource.
-	 *
 	 * @return Response
 	 */
 	public function index()
 	{
-		$status = $this->status->getUpdates();
-
-		return $this->respond([
-			'data' => $this->statusTransformer->transformCollection($status->toArray()),
-		]);
+		$coor = explode(',', $this->request->input('ll'));
+		return $this->location->findNear($coor);
 	}
 
 	/**
 	 * Show the form for creating a new resource.
-	 *
+	 * @Get("/admin/location/create")
 	 * @return Response
 	 */
 	public function create()
 	{
-		//
+		return view('location.create');
 	}
 
 	/**
@@ -51,7 +52,8 @@ class StatusController extends ApiController {
 	 */
 	public function store()
 	{
-		//
+		$data = $this->request->all();
+		dd($this->location->create($data));
 	}
 
 	/**
@@ -62,15 +64,7 @@ class StatusController extends ApiController {
 	 */
 	public function show($id)
 	{
-		$status = Status::find($id);
-
-		if (!$status) {
-			return $this->responseNotFound("Status doesn't exist");
-		}
-
-		return $this->respond([
-			'data' => $this->statusTransformer->transform($status)
-		]);
+		//
 	}
 
 	/**
