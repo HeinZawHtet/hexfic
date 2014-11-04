@@ -13,7 +13,7 @@ class StatusCollectionSeeder extends Seeder {
         for ($count=0; $count < 8 ; $count++) {
             Status::create([
                 'user_id' => $faker->numberBetween($min = 1, $max = 3),
-                'place_id' => $faker->numberBetween($min = 1, $max = 3),
+                'location_id' => $faker->numberBetween($min = 1, $max = 3),
                 'status'  => $faker->numberBetween($min = 1000, $max = 1005),
                 'comment' => $faker->text($maxNbChars = 100)
             ]);
