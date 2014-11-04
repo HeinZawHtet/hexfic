@@ -3,6 +3,7 @@
 use App\Status;
 use App\Transformers\StatusTransformer;
 use App\Repositories\StatusRepository;
+use App\Http\Requests\StatusRequest;
 
 /**
  * @Resource("/api/v1/status")
@@ -27,11 +28,11 @@ class StatusController extends ApiController {
 	 */
 	public function index()
 	{
-		$status = $this->status->getUpdates();
+		$status = $this->status->getUpdates()->toArray();
 
-		return $this->respond([
-			'data' => $this->statusTransformer->transformCollection($status->toArray()),
-		]);
+		return $this->respond(
+			$this->statusTransformer->transformCollection($status)
+		);
 	}
 
 	/**
@@ -39,9 +40,9 @@ class StatusController extends ApiController {
 	 *
 	 * @return Response
 	 */
-	public function create()
+	public function create(StatusRequest $request)
 	{
-		//
+		dd($request->input('comment'));
 	}
 
 	/**

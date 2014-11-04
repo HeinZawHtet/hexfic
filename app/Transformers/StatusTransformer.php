@@ -10,7 +10,9 @@ class StatusTransformer extends Transformer {
 			'comment'		=> $status['comment'],
 			'location'		=> [
 				'id' 		=> $status['location']['_id'],
-				'name' 		=> $status['location']['name']
+				'name' 		=> $status['location']['name'],
+				'longitude'	=> $status['location']['loc']['lon'],
+				'latitude'  => $status['location']['loc']['lat']
 			],
 			'created_at'	=> $status['created_at']
 		];
