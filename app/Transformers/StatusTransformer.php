@@ -7,7 +7,7 @@ class StatusTransformer extends Transformer {
 		return [
 			'id'			=> $status['_id'],
 			'status'		=> $status['status'],
-			'comment'		=> $status['comment'],
+			'comment'		=> $status['message'],
 			'location'		=> [
 				'id' 		=> $status['location']['_id'],
 				'name' 		=> $status['location']['name'],
