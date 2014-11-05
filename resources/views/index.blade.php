@@ -57,8 +57,29 @@
 				<p class="status-comment">Pate chat pal</p>
 			</div>
 	</article>
-</div>
 
+	<div class="panel panel-default">
+		<div class="panel-heading">
+			<h3 class="panel-title">Submit</h3>
+		</div>
+		<div class="panel-body">
+			<form id="report-form">
+				<div class="form-group">
+					<input type="text" name="comment" class="form-control" placeholder="Comment" />
+				</div>
+				<div class="form-group">
+					<select class="form-control" name="status">
+						<option value="bad">Bad</option>
+					</select>
+				</div>
+				<div class="form-group">
+					<input type="submit" class="btn btn-primary" value="Submit">
+				</div>
+			</form>
+		</div>
+	</div>
+
+</div>
 
 <script type="text/javascript" src="http://localhost/jquery.js"></script>
 <script type="text/javascript" src="http://localhost/bw/bootstrap.min.js"></script>
@@ -66,8 +87,8 @@
 
 	(function( $ ) {
 		$(document).ajaxSend(function(e, xhr, options) {
-  			var token = $("meta[name='csrf-token']").attr("content");
-  			xhr.setRequestHeader("X-CSRF-Token", token);
+  			// var token = $("meta[name='csrf-token']").attr("content");
+  			// xhr.setRequestHeader("X-CSRF-Token", token);
 		});
 		$.Status = function( element ) {
 			this.$element = $( element ); // top-level element
@@ -76,12 +97,12 @@
 
 		$.Status.prototype = {
 			init: function() {
-				this.$formAddToCart = this.$element.find( "form.add-to-cart" );
+				this.$reportForm = this.$element.find( "#report-form" );
 				this.$url = "http://localhost:8000/api/v1/status";
 
 				navigator.geolocation.getCurrentPosition(this.getLocation);
-
-				this.fetch();
+				// this.fetch();
+				this.submit();
 			},
 			getLocation: function (location) {
     			var $lat = location.coords.latitude;
@@ -90,7 +111,7 @@
 			fetch: function () {
 				var self = this;
 				$.ajax({
-					type: 'GET',
+					type: 'POST',
 					url: self.$url,
 					data: {
 						lat : self.$lat,
@@ -100,6 +121,24 @@
 						console.log(response);
 					},
 				})
+			},
+			submit: function() {
+				var self = this;
+				self.$reportForm.on('submit', function(e) {
+					e.preventDefault();
+
+					$.ajax({
+					type: 'POST',
+					url: self.$url,
+					data: {
+						comment : 'Aye Say',
+						status : 1000,
+					},
+					success: function(response) {
+						console.log(response);
+					},
+				})
+				});
 			}
 		};
 

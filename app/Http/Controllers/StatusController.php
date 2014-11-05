@@ -7,6 +7,7 @@ use App\Http\Requests\StatusRequest;
 
 /**
  * @Resource("/api/v1/status")
+ * @Middleware("csrf", except={"store"})
  */
 class StatusController extends ApiController {
 
@@ -40,9 +41,9 @@ class StatusController extends ApiController {
 	 *
 	 * @return Response
 	 */
-	public function create(StatusRequest $request)
+	public function create()
 	{
-		dd($request->input('comment'));
+		
 	}
 
 	/**
@@ -50,9 +51,9 @@ class StatusController extends ApiController {
 	 *
 	 * @return Response
 	 */
-	public function store()
+	public function store(StatusRequest $request)
 	{
-		//
+		dd($request->input('comment'));
 	}
 
 	/**
