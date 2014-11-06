@@ -11,6 +11,6 @@ class Status extends Mongodb {
 		return $this->belongsTo('App\Location');
 	}
    	public function getCreatedAtAttribute($attr) {        
-        return Carbon::parse($attr)->format('Y-m-d\TH:i:sO');
+        return Carbon::parse($attr)->timestamp;
     }
 }

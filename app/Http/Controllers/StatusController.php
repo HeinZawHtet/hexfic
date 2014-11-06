@@ -4,6 +4,7 @@ use App\Status;
 use App\Transformers\StatusTransformer;
 use App\Repositories\StatusRepository;
 use App\Http\Requests\StatusRequest;
+use Illuminate\Http\Request;
 
 /**
  * @Resource("/api/v1/status")
@@ -27,8 +28,17 @@ class StatusController extends ApiController {
 	 *
 	 * @return Response
 	 */
-	public function index()
+	public function index(Request $request)
 	{
+		if ($request->get('last_item_time')) {
+			$lastItemTime = $request->get('last_item_time');
+			$status = $this->status->getFresh($lastItemTime)->toArray();
+
+			return $this->respond(
+				$this->statusTransformer->transformCollection($status)
+			);
+		}
+
 		$status = $this->status->getUpdates()->toArray();
 
 		return $this->respond(

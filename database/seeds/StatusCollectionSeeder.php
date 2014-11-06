@@ -17,6 +17,7 @@ class StatusCollectionSeeder extends Seeder {
                 'status'  => $faker->numberBetween($min = 1000, $max = 1005),
                 'comment' => $faker->text($maxNbChars = 100)
             ]);
+            sleep('3');
         };
 
     }
