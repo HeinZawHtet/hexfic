@@ -12,8 +12,11 @@ class RegisterRequest extends FormRequest {
 	public function rules()
 	{
 		return [
+			'phone' => 'required|regex:/[0-9]{10,11}/|unique:users',
+			'username' => 'required|min:3',
+			'username' => 'required|min:3',
 			'email' => 'required|email|unique:users',
-			'password' => 'required|confirmed|min:8',
+			'password' => 'required|confirmed|min:8'
 		];
 	}
 

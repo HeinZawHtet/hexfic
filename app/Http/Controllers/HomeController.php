@@ -32,14 +32,15 @@ class HomeController extends Controller {
 	| via simple annotations. Here is an example to get you started!
 	|
 	*/
-
 	/**
 	 * @Get("/")
+	 * @Middleware("apiKey")
 	 */
 	public function index()
 	{
-
 		return view('index');
 	}
+
+
 
 }

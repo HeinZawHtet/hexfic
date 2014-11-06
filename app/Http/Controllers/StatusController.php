@@ -3,7 +3,7 @@
 use App\Status;
 use App\Transformers\StatusTransformer;
 use App\Repositories\StatusRepository;
-use App\Http\Requests\StatusRequest;
+use App\Http\Requests\RegisterRequest;
 use Illuminate\Http\Request;
 
 /**
@@ -61,9 +61,9 @@ class StatusController extends ApiController {
 	 *
 	 * @return Response
 	 */
-	public function store(StatusRequest $request)
+	public function store(RegisterRequest $request)
 	{
-		dd($request->input('comment'));
+
 	}
 
 	/**

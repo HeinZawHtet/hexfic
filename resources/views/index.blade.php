@@ -98,7 +98,7 @@
 		$.Status.prototype = {
 			init: function() {
 				this.$reportForm = this.$element.find( "#report-form" );
-				this.$url = "http://localhost:8000/api/v1/status";
+				this.$url = "http://localhost:8000/";
 
 				navigator.geolocation.getCurrentPosition(this.getLocation);
 				// this.fetch();
@@ -127,17 +127,31 @@
 				self.$reportForm.on('submit', function(e) {
 					e.preventDefault();
 
+					// $.ajax({
+					// 	type: 'POST',
+					// 	url: self.$url,
+					// 	data: {
+					// 		comment : 'Aye Say',
+					// 		status : 1000,
+					// 	},
+					// 	success: function(response) {
+					// 		console.log(response);
+					// 	},
+					// })
 					$.ajax({
-					type: 'POST',
-					url: self.$url,
-					data: {
-						comment : 'Aye Say',
-						status : 1000,
-					},
-					success: function(response) {
-						console.log(response);
-					},
-				})
+						type: 'POST',
+						url: self.$url,
+						data: {
+							phone : '095999058627',
+							username : 'ssss',
+							email : 'heinhtet@heinhtet.com',
+							password : 'heinhtet',
+							password_confirmation : 'heinhtet',
+						},
+						success: function(response) {
+							console.log(response);
+						},
+					})
 				});
 			}
 		};

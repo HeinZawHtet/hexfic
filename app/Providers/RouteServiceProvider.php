@@ -28,6 +28,7 @@ class RouteServiceProvider extends ServiceProvider {
 		'auth' => 'App\Http\Middleware\Authenticated',
 		'auth.basic' => 'App\Http\Middleware\AuthenticatedWithBasicAuth',
 		'csrf' => 'App\Http\Middleware\VerifyCsrfToken',
+		'apiKey' => 'App\Http\Middleware\VerifyApiKey',
 		'guest' => 'App\Http\Middleware\IsGuest',
 	];
 

@@ -4,6 +4,7 @@ use Illuminate\Routing\Controller;
 use Illuminate\Contracts\Auth\Guard;
 use App\Http\Requests\Auth\LoginRequest;
 use App\Http\Requests\Auth\RegisterRequest;
+use App\Repositories\UserRepository;
 
 /**
  * @Middleware("guest", except={"logout"})
@@ -17,15 +18,18 @@ class AuthController extends Controller {
 	 */
 	protected $auth;
 
+	protected $user;
+
 	/**
 	 * Create a new authentication controller instance.
 	 *
 	 * @param  Guard  $auth
 	 * @return void
 	 */
-	public function __construct(Guard $auth)
+	public function __construct(Guard $auth, UserRepository $user)
 	{
 		$this->auth = $auth;
+		$this->user = $user;
 	}
 
 	/**
@@ -50,11 +54,13 @@ class AuthController extends Controller {
 	 */
 	public function register(RegisterRequest $request)
 	{
-		// Registration form is valid, create user...
+		
 
-		$this->auth->login($user);
+		// $this->auth->login($user);
 
-		return redirect('/');
+
+
+		// return redirect('/');
 	}
 
 	/**
@@ -66,7 +72,13 @@ class AuthController extends Controller {
 	 */
 	public function showLoginForm()
 	{
-		return view('auth.login');
+		$data = [
+			'phone' => '095940058627',
+			'username'		=> 'ssss'
+		];
+
+		return $this->auth->login($data);
+		// return view('auth.login');
 	}
 
 	/**
