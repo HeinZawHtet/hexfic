@@ -61,9 +61,9 @@ class StatusController extends ApiController {
 	 *
 	 * @return Response
 	 */
-	public function store(RegisterRequest $request)
+	public function store()
 	{
-
+		
 	}
 
 	/**

@@ -15,7 +15,6 @@ $app = new Illuminate\Foundation\Application(
 	realpath(__DIR__.'/..')
 );
 
-
 /*
 |--------------------------------------------------------------------------
 | Create The Application
@@ -35,6 +34,11 @@ $app->singleton(
 $app->singleton(
 	'Illuminate\Contracts\Console\Kernel',
 	'App\Console\Kernel'
+);
+
+$app->singleton(
+	'Illuminate\Contracts\Debug\ExceptionHandler',
+	'Illuminate\Foundation\Debug\ExceptionHandler'
 );
 
 /*
