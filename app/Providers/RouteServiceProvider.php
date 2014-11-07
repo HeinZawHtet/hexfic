@@ -42,7 +42,7 @@ class RouteServiceProvider extends ServiceProvider {
 	 */
 	public function before(Router $router)
 	{
-		//
+		
 	}
 
 	/**

@@ -34,11 +34,18 @@ class HomeController extends Controller {
 	*/
 	/**
 	 * @Get("/")
-	 * @Middleware("apiKey")
 	 */
 	public function index()
 	{
+		return view('index');
+	}
 
+	/**
+	 * @Get("/get")
+	 */
+	public function get()
+	{
+		return mt_rand(1000, 9999);
 	}
 
 

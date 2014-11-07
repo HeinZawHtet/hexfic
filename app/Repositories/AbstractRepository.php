@@ -36,7 +36,7 @@ abstract class AbstractRepository
      */
     public function create($data)
     {
-        $this->model->create($data);
+        return $this->model->create($data);
     }
 
     /**

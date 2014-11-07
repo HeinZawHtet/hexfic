@@ -18,7 +18,7 @@ class Kernel extends HttpKernel {
 		'Illuminate\Session\Middleware\WriteSession',
 		'Illuminate\View\Middleware\ShareErrorsFromSession',
 		// 'App\Http\Middleware\VerifyCsrfToken',
-		'App\Http\Middleware\VerifyApiKey',
+		// 'App\Http\Middleware\VerifyApiKey',
 	];
 
 	/**

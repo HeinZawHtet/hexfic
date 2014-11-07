@@ -1,15 +1,16 @@
 <?php namespace App\Http\Controllers\Auth;
 
-use Illuminate\Routing\Controller;
+use App\Http\Controllers\ApiController;
 use Illuminate\Contracts\Auth\Guard;
 use App\Http\Requests\Auth\LoginRequest;
 use App\Http\Requests\Auth\RegisterRequest;
+use App\Http\Requests\Auth\ConfirmationRequest;
 use App\Repositories\UserRepository;
 
 /**
  * @Middleware("guest", except={"logout"})
  */
-class AuthController extends Controller {
+class AuthController extends ApiController {
 
 	/**
 	 * The Guard implementation.
@@ -41,7 +42,7 @@ class AuthController extends Controller {
 	 */
 	public function showRegistrationForm()
 	{
-		return view('auth.register');
+		// return view('auth.register');
 	}
 
 	/**
@@ -54,13 +55,49 @@ class AuthController extends Controller {
 	 */
 	public function register(RegisterRequest $request)
 	{
+		$data = [
+			'username'			=> $request->get('username'),
+			'phone' 			=> $request->get('phone'),
+			'confirmation_code' => mt_rand(1000, 9999),
+			'activated' 		=> 0
+		];
+
+		$user = $this->user->create($data);
+
+		if (!$user) {
+			return $this->errorUnauthorized("Something wrong");
+		}
+
+		return $this->respond([
+			'message' 			=> 'Confirmation code sent',
+			'confirmation_code' => $user->confirmation_code
+		]);
+	}
+
+	/**
+	 * handle confirmation code
+	 *
+	 * @Post("auth/confirm")
+	 *
+	 * @param  RegisterRequest  $request
+	 * @return Response
+	 */
+	public function confirm(ConfirmationRequest $request)
+	{
+		$userId = $request->get('user_id');
+		$user = $this->user->findById($userId);
+
+		$confirmCode = $user->confirmation_code;
 		
+		if ($confirmCode == $request->get('confirmation_code')) {
+			$user = $this->user->update(['activated' => 1], $userId);
+			
+			return $this->respond([
+				'message' 	=> 'Registration complete'
+			]);
+		}
 
-		// $this->auth->login($user);
-
-
-
-		// return redirect('/');
+		return $this->errorUnauthorized("Wrong Code");
 	}
 
 	/**

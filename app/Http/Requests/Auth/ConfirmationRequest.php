@@ -2,7 +2,7 @@
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class RegisterRequest extends FormRequest {
+class ConfirmationRequest extends FormRequest {
 
 	/**
 	 * Get the validation rules that apply to the request.
@@ -12,8 +12,7 @@ class RegisterRequest extends FormRequest {
 	public function rules()
 	{
 		return [
-			'phone' => 'required|regex:/[0-9]{10,11}/|unique:users',
-			'username' => 'required|min:3'
+			'confirmation_code' => 'required|min:4'
 		];
 	}
 

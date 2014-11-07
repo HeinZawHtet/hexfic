@@ -40,7 +40,6 @@ $app->singleton(
 	'Illuminate\Contracts\Debug\ExceptionHandler',
 	'Illuminate\Foundation\Debug\ExceptionHandler'
 );
-
 /*
 |--------------------------------------------------------------------------
 | Return The Application
