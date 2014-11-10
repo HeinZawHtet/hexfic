@@ -15,7 +15,7 @@ class VerifyApiKey implements Middleware {
      */
     public function handle($request, Closure $next)
     {
-        if ( in_array($request->headers->get('X-App-Secret-Key'), \Config::get('hexfic.api_key')))
+        if ( in_array($request->headers->get('X-Api-Key'), \Config::get('hexfic.api_key')))
 		{
 			return $next($request);
 		}

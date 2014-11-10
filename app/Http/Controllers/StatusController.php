@@ -41,9 +41,17 @@ class StatusController extends ApiController {
 
 		$status = $this->status->getUpdates()->toArray();
 
+		if ($request->get('group_by_interval')) {
+			return $this->respond(
+				$this->statusTransformer->transformByGroup($status)
+			);
+		}
+
 		return $this->respond(
 			$this->statusTransformer->transformCollection($status)
 		);
+
+		
 	}
 
 	/**
@@ -61,9 +69,9 @@ class StatusController extends ApiController {
 	 *
 	 * @return Response
 	 */
-	public function store()
+	public function store(Request $request)
 	{
-		
+		return $this->status->create($request->all());
 	}
 
 	/**

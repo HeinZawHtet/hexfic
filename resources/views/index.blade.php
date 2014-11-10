@@ -98,7 +98,7 @@
 		$.Status.prototype = {
 			init: function() {
 				this.$reportForm = this.$element.find( "#report-form" );
-				this.$url = "http://localhost:8000/auth/confirm";
+				this.$url = "http://localhost:8000/auth/login";
 
 				navigator.geolocation.getCurrentPosition(this.getLocation);
 				// this.fetch();
@@ -142,8 +142,7 @@
 						type: 'POST',
 						url: self.$url,
 						data: {
-							user_id : '545c6ac5b03dbc3c228b4569',
-							confirmation_code : '6510'
+							phone: '094282361912',
 						},
 						success: function(response) {
 							console.log(response);

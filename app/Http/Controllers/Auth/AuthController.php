@@ -65,7 +65,7 @@ class AuthController extends ApiController {
 		$user = $this->user->create($data);
 
 		if (!$user) {
-			return $this->errorUnauthorized("Something wrong");
+			return $this->errorInternalError("Something wrong");
 		}
 
 		return $this->respond([
@@ -88,8 +88,9 @@ class AuthController extends ApiController {
 		$user = $this->user->findById($userId);
 
 		$confirmCode = $user->confirmation_code;
-		
+
 		if ($confirmCode == $request->get('confirmation_code')) {
+			
 			$user = $this->user->update(['activated' => 1], $userId);
 			
 			return $this->respond([
@@ -128,14 +129,17 @@ class AuthController extends ApiController {
 	 */
 	public function login(LoginRequest $request)
 	{
-		if ($this->auth->attempt($request->only('email', 'password')))
-		{
-			return redirect('/');
+		$user = $this->user->findByPhone($request->get('phone'))->first();
+
+		if (!$user) {
+			return $this->errorUnauthorized("Login Fail");
 		}
 
-		return redirect('/auth/login')->withErrors([
-			'email' => 'These credentials do not match our records.',
-		]);
+		if ($this->auth->loginUsingId($user->id)) {
+			return $this->respond([
+				'message' 	=> 'Successfully logged in'
+			]);
+		}
 	}
 
 	/**

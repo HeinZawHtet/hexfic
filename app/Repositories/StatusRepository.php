@@ -2,14 +2,17 @@
 
 use App\Status;
 
-class StatusRepository {
+class StatusRepository extends AbstractRepository {
+
+	protected $model;
+
 	function __construct(Status $status) {
-		$this->status = $status;
+		$this->model = $status;
 	}
 
 	public function getUpdates()
 	{
-		return $this->status->with('location')->get();
+		return $this->model->with('location')->orderBy('created_at', 'desc')->get();
 	}
 
 	public function getFresh($lastItemTime)
@@ -21,6 +24,6 @@ class StatusRepository {
 		//dd(\Carbon\Carbon::parse(strtotime($lastItemTime))->toDateString());
 		//$test = new \MongoDate(new \DateTime($lastItemTime)->getTimestamp());
 		//dd(new \DateTime::createFromFormat(\DateTime::ISO8601, $lastItemTime));
-		return $this->status->with('location')->where('created_at', '>', $dateTime)->get();
+		return $this->model->with('location')->where('created_at', '>', $dateTime)->get();
 	}
 }

@@ -37,7 +37,14 @@ class HomeController extends Controller {
 	 */
 	public function index()
 	{
-		return view('index');
+		$models = \App\Status::raw(function($collection)
+		{
+		    return $collection->aggregate(
+		    	[ '$group' => [ '_id' => '$created_at', 'total' => [ '$sum' => 1 ]]]
+		    );
+		});
+
+		return $models;
 	}
 
 	/**
@@ -45,9 +52,69 @@ class HomeController extends Controller {
 	 */
 	public function get()
 	{
-		return mt_rand(1000, 9999);
+		/* $m = new \MongoClient(); // connect
+		$db = $m->selectDB("hexfic");
+
+		$events = $db->events;
+
+		$events->insert(array("user_id" => '1', 
+		    "type" => 'day', 
+		    "time" => new \MongoDate(), 
+		    "desc" => 'test'));
+
+		// construct map and reduce functions
+		$map = new \MongoCode("function() { emit(this.user_id,1); }");
+		$reduce = new \MongoCode("function(k, vals) { ".
+		    "var sum = 0;".
+		    "for (var i in vals) {".
+		        "sum += vals[i];". 
+		    "}".
+		    "return sum; }");
+
+		$sales = $db->command(array(
+		    "mapreduce" => "events", 
+		    "map" => $map,
+		    "reduce" => $reduce,
+		    "query" => array("type" => "sale"),
+		    "out" => array("merge" => "eventCounts")));
+
+		$users = $db->selectCollection($sales['result'])->find();
+
+		foreach ($users as $user) {
+		    echo "{$user['_id']} had {$user['value']} sale(s).\n";
+		} */
+
+		/* $comments   = array();
+		$comments[] = array(
+			'_id' => '17',
+            'time'      => '2011-05-10 11:10:00',
+            'name'      => 'John Smith',
+            'comment'   => 'Test Comment 1'
+        );
+		$comments[] = array(
+			'_id' => '25',
+            'time'      => '2011-05-10 11:26:00',
+            'name'      => 'David Jones',
+            'comment'   => 'Test Comment 2'
+        );
+		$comments[] = array(
+			'_id' => '17',
+            'time'      => '2011-05-10 11:26:00',
+            'name'      => 'John Smith',
+            'comment'   => 'Test Comment 3'
+        );
+
+		$grouped = array();
+		foreach($comments as $c) {
+  			if(!isset($grouped[$c['time']])) {
+    			$grouped[$c['time']] = array();
+  			}
+
+  			$grouped[$c['time']][] = $c;
+		}
+
+		return $grouped; */
+		return \Carbon\Carbon::now()->timestamp(1415518558);
+		
 	}
-
-
-
 }

@@ -12,7 +12,7 @@ class LoginRequest extends FormRequest {
 	public function rules()
 	{
 		return [
-			'email' => 'required', 'password' => 'required',
+			'phone' => 'required|regex:/[0-9]{10,11}/',
 		];
 	}
 

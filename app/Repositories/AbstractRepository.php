@@ -61,5 +61,25 @@ abstract class AbstractRepository
         return $model->delete();
     }
 
+    /**
+     * Where clause
+     *
+     * @author Hein Zaw Htet
+     **/
+    public function where($key, $operator, $value)
+    {
+        return $this->where($key, $operator, $value);
+    }
+
+    /**
+     * Equal clause
+     *
+     * @author Hein Zaw Htet
+     **/
+    public function equal($key, $value)
+    {
+        return $this->where($key, '=' , $value);
+    }
+
 
 }
