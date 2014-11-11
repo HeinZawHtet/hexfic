@@ -7,11 +7,17 @@
 <div class="uk-form-row">
 	<div class="uk-form-icon">
 		<i class="uk-icon-map-marker"></i>
-		{!! Form::text('loc[lon]', Input::get('loc["lon"]'), array('placeholder' => 'Longitude', 'class' => 'uk-form-width-small') ) !!}
+		{!! Form::text('lat', Input::get('lat'), array('placeholder' => 'Latitude', 'class' => 'uk-form-width-small') ) !!}
 	</div>
 	<div class="uk-form-icon">
 		<i class="uk-icon-map-marker"></i>
-		{!! Form::text('loc[lat]', Input::get('loc["lat"]'), array('placeholder' => 'Latitude', 'class' => 'uk-form-width-small') ) !!}
+		{!! Form::text('lon', Input::get('lon'), array('placeholder' => 'Longitude', 'class' => 'uk-form-width-small') ) !!}
+	</div>
+</div>
+<div class="uk-form-row">
+	<div class="uk-form-icon">
+		<i class="uk-icon-info-circle"></i>
+		{!! Form::text('township', Input::get('township'), array('placeholder' => 'Township', 'class' => 'uk-form-width-large') ) !!}
 	</div>
 </div>
 <div class="uk-form-row">

@@ -52,7 +52,15 @@ class LocationController extends ApiController {
 	 */
 	public function store()
 	{
-		$data = $this->request->all();
+		$data = [
+			'name' => $this->request->get('name'),
+			'loc' => [
+				'lat' => (float) $this->request->get('lat'),
+				'lon' => (float) $this->request->get('lon')
+			],
+			'township' => $this->request->get('township'),
+
+		];
 		dd($this->location->create($data));
 	}
 

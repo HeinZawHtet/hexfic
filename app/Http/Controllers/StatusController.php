@@ -41,11 +41,23 @@ class StatusController extends ApiController {
 
 		$status = $this->status->getUpdates()->toArray();
 
-		if ($request->get('group_by_interval')) {
+		// if ($request->get('group_by_interval')) {
+		// 	return $this->respond(
+		// 		$this->statusTransformer->transformByGroup($status)
+		// 	);
+		// }
+
+		if ($request->get('groupBy') == "location") {
 			return $this->respond(
-				$this->statusTransformer->transformByGroup($status)
+				$this->statusTransformer->transformByLocation($status)
 			);
 		}
+
+		// if ($request->get('groupBy') == "location") {
+		// 	return $this->respond(
+		// 		$this->statusTransformer->transformByTownship($status)
+		// 	);
+		// }
 
 		return $this->respond(
 			$this->statusTransformer->transformCollection($status)
