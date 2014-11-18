@@ -1,0 +1,8 @@
+[2014-11-18 16:47:00] local.ERROR: exception 'Symfony\Component\Debug\Exception\FatalErrorException' with message 'Call to undefined method App\Transformers\StatusTransformer::transformCollection()' in /home/heinzawhtet/Documents/websites/hexfic/app/Http/Controllers/StatusController.php:63
+Stack trace:
+#0 [internal function]: Illuminate\Foundation\Bootstrap\HandleExceptions->handleShutdown()
+#1 {main} [] []
+[2014-11-18 16:47:20] local.ERROR: exception 'Symfony\Component\Debug\Exception\FatalErrorException' with message 'Call to undefined method App\Transformers\StatusTransformer::transformCollection()' in /home/heinzawhtet/Documents/websites/hexfic/app/Http/Controllers/StatusController.php:63
+Stack trace:
+#0 [internal function]: Illuminate\Foundation\Bootstrap\HandleExceptions->handleShutdown()
+#1 {main} [] []
