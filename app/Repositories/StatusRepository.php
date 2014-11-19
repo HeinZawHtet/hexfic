@@ -12,7 +12,8 @@ class StatusRepository extends AbstractRepository {
 
 	public function getUpdates()
 	{
-		return $this->model->where('created_at', '>', \Carbon\Carbon::now()->subHour())->with('location')->orderBy('created_at', 'desc')->get();
+		// return $this->model->where('created_at', '>', \Carbon\Carbon::now()->subHour())->with('location')->orderBy('created_at', 'desc')->get();
+		return $this->model->with('location')->orderBy('created_at', 'desc')->get();
 	}
 
 	public function getFresh($lastItemTime)
